@@ -115,6 +115,12 @@ RealtimeURDFFilter::RealtimeURDFFilter (ros::NodeHandle &nh, int argc, char **ar
       &RealtimeURDFFilter::filter_callback, this);
   depth_pub_ = image_transport_.advertiseCamera("output_depth", 10);
   mask_pub_ = image_transport_.advertiseCamera("output_mask", 10);
+
+  // set png compression by default
+  nh_.setParam(nh_.resolveName("output_depth") + "/compressed/format", "png");
+  nh_.setParam(nh_.resolveName("output_depth") + "/compressed/png_level", 0);
+  nh_.setParam(nh_.resolveName("output_mask") + "/compressed/format", "png");
+  nh_.setParam(nh_.resolveName("output_mask") + "/compressed/png_level", 0);
 }
 
 RealtimeURDFFilter::~RealtimeURDFFilter ()
